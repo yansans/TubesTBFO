@@ -1,0 +1,3 @@
+S -> ASB
+A -> 'a'AS|'a'|.
+B -> S'b'S|A|'b''b'

@@ -1,0 +1,9 @@
+S -> .SB | AS. | EB
+A -> C.S | FS
+B -> C.S | GS | FS
+C -> 'a'
+D -> 'b'
+E -> AS
+F -> CA
+G -> SD
+epsilon = .
