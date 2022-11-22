@@ -4,12 +4,12 @@ ALPHABETS -> 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | '
 
 DIGITS -> '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
 
-OTHERS -> '!' | '#' | '$' | '%' | '&' | '(' | ')' | '*' | '+' | ',' | '-' | '.' | OR | ':' | ';' | '<' | '=' | '>' | '?' | '@' | '[' | '\' | ']' | '^' | '_' | '`' | '{' | OR | '}' | '~'
+OTHERS -> '!' | '#' | '$' | '%' | '&' | '(' | ')' | '*' | '+' | ',' | '-' | '.' | '/' | ':' | ';' | '<' | '=' | '>' | '?' | '@' | '[' | '\' | ']' | '^' | '_' | '`' | '{' | '|' | '}' | '~'
 
-ARITHMETIC -> '+' | '-' | '*' | '*' | '*' '*' | OR | '%'
-LOGICAL1 -> '&' '&' | OR OR
+ARITHMETIC -> '+' | '-' | '*' | '*' | '*' '*' | '/' | '%'
+LOGICAL1 -> '&' '&' | '|' '|'
 LOGICAL2 -> '=' '=' | '>' | '>' '=' | '<' | '<' '='
-BITWISE -> '&' | OR | '~' | '^' | '<' '<' | '>' '>' | '>' '>' '>'
+BITWISE -> '&' | '|' | '~' | '^' | '<' '<' | '>' '>' | '>' '>' '>'
 
 EOS -> ';' SPACEOREMPTY
 
@@ -26,7 +26,7 @@ CHARLIST2 -> ALPHABETS | DIGITS | '_'
 VARCHAR -> CHARLIST2 | CHARLIST2 VARCHAR
 VARIABLE -> CHARLIST1 | CHARLIST1 VARCHAR
 
-COMMENT -> OR OR SPACEOREMPTY STRINGINS
+COMMENT -> '/' '/' SPACEOREMPTY STRINGINS
 
 OBJECTNAME -> ALPHABETS OBJECTNAME | ALPHABETS
 OBJECT -> OBJECTNAME '.' VARIABLE | OBJECTNAME '.' METHOD
