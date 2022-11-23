@@ -14,7 +14,7 @@ BITWISE -> '&' | OR | '~' | '^' | '<' '<' | '>' '>' | '>' '>' '>'
 EOS -> ';' SPACEOREMPTY
 
 SPACE -> ' ' | ' ' SPACE
-SPACEOREMPTY -> SPACE | ''
+SPACEOREMPTY -> SPACE | epsilon
 
 LET -> 'l' 'e' 't'
 VAR -> 'v' 'a' 'r'

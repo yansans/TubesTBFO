@@ -58,12 +58,18 @@ def removeNull(grammar):
     return grammar
 
 def replaceEpsilon(grammar):
+    found = False
     for var in grammar.copy():
         for prod in grammar[var].copy():
-            np = prod.replace(epsilon, '')
-            if np != prod:
-                grammar[var].append(np)
-                grammar[var].remove(prod)
+            if epsilon in prod:
+                if len(prod) == 7:
+                    grammar[var].remove(prod)
+                else:
+                    np = prod.replace(epsilon, '')
+                    # print(np)
+                    grammar[var].append(np)
+                    grammar[var].remove(prod)
+
     return grammar
 
 def removeUnit(grammar):
@@ -73,6 +79,7 @@ def removeUnit(grammar):
             if " " not in prod:
                 # print("p",p)
                 if prod != var and prod not in done and not(isTerminal(prod)):
+                    print(prod)
                     grammar[var].remove(prod)
                     for p2 in grammar[prod].copy():
                         # print("l",l)
@@ -129,7 +136,7 @@ def removeInvalid(grammar):
     for var in grammar.copy():
         for prod in grammar[var].copy():
             for v in variable:
-                if v == prod:
+                if v == prod.strip():
                     invalid = True
                     print("Invalid Variable:", var, "->", prod)
                     grammar[var].remove(prod)
@@ -197,21 +204,20 @@ if __name__ == '__main__':
     # print(terminal)
     # printgrammar(grammar)
     nulls = removeNull(grammar)
-    print("Grammar after removing null productions:")
-    # printgrammar(nulls)
+    # print("Grammar after removing null productions:")
+    # # printgrammar(nulls)
     unit = removeUnit(nulls)
-    print("Grammar after removing unit productions:")
-    # printgrammar(unit)
+    # print("Grammar after removing unit productions:")
+    # # printgrammar(unit)
     replaceTerma = replaceTerminal(unit)
-    print("Grammar after replacing terminals:")
-    # printgrammar(replaceTerma)
+    # print("Grammar after replacing terminals:")
+    # # printgrammar(replaceTerma)
     invalid = removeInvalid(replaceTerma)
-    print("Grammar after removing invalid productions:")
-    # printgrammar(invalid)
+    # print("Grammar after removing invalid productions:")
+    # # printgrammar(invalid)
     twoVar = makeTwoVar(invalid)
-    print("Grammar after making two variable productions:")
-    # printgrammar(twoVar)
-
+    # print("Grammar after making two variable productions:")
+    # # printgrammar(twoVar)
     # output
     cnf = twoVar
     filename = "test/cnf.txt"
