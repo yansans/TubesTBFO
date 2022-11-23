@@ -1,6 +1,7 @@
 # CFG to CNF Algorithm
 
 import string
+from itertools import product
 
 epsilon = "epsilon"
 or_term = "'|'"
@@ -43,19 +44,110 @@ def parsingCFG(file):
     terminal.append(or_term)
     terminal.append("' '")
     return grammar
+    
+def filler(word, from_char, to_char):
+    options = [(c,) if c != from_char else (from_char, to_char) for c in word]
+    return (''.join(o) for o in product(*options))
 
 def removeNull(grammar):
     # remove null productions in CFG
+    # removed = []
+    # for var in grammar.copy():
+    #     for prod in grammar[var].copy():
+    #         if prod == epsilon:
+    #             removed.append(var)
+    #             for v in grammar.copy():
+    #                 for p in grammar[v].copy():
+    #                     if var in p:
+    #                         newp = list(filler(p, var, epsilon))
+    #                         for np in newp:
+    #                             if np not in grammar[v]:
+    #                                 grammar[v].append(np)
+
+    copy_grammar = grammar.copy()
+
+    set_epsilon = set()
+    loop = True
+    while(loop):
+        loop = False
+        for var in copy_grammar.copy():
+            if not(var in set_epsilon):
+                if epsilon in copy_grammar[var].copy():
+                    set_epsilon.add(var)
+                    loop = True
+
+        for var in copy_grammar.copy():
+                for prod in copy_grammar[var].copy():
+                    for p in prod:
+                        if p in set_epsilon:
+                            copy_grammar[var].append(prod.replace(p, epsilon))
+    # print(set_epsilon)
+
+    for var_ep in set_epsilon:
+        for var in grammar.copy():
+            for prod in grammar[var].copy():
+                if var_ep in prod:
+                    newp = list(filler(prod, var_ep, epsilon))
+                    for np in newp :
+                        if np not in grammar[var]:
+                            grammar[var].append(np)
+
+    # printgrammar(grammar)
+    replaceEpsilon(grammar)
+    # printgrammar(grammar)
+    removeBlankProd(grammar)
+    # printgrammar(grammar)
+    removeDuplicateProd(grammar)
+    # printgrammar(grammar)
+    return grammar
+
+def removeNullDewa(CFG):
+    # {'S': ['A A A', 'B', 'epsilon', 'epsilon', 'epsilon'], 
+    # 'A': ["'a' A", 'B', 'epsilon', 'epsilon', 'epsilon'], 
+    # 'B': ['epsilon'], 'OR': ["'|'"]}
+    set_epsilon = set()
+    loop = True
+    grammar = CFG.copy()
+    while(loop):
+        loop = False
+        for var in grammar:
+            if not(var in set_epsilon) and epsilon in grammar[var]:
+                set_epsilon.add(var)
+                loop = True
+                for newVar in grammar:
+                    if not(newVar in set_epsilon) and not(epsilon in grammar[newVar]):
+                        found = False
+                        for resultGrammar in grammar[newVar]:
+                            if (found == True):
+                                break
+                            varmid = " " + var + " "
+                            varleft = var + " "
+                            varright = " " + var
+                            if (resultGrammar.startswith(varleft) or resultGrammar.endswith(varright) or resultGrammar.find(varmid)!=-1 or resultGrammar == var):
+                                grammar[newVar].append(epsilon)
+                                found = True
+    
+            
+        
+def removeDuplicateProd(grammar):
+    for var in grammar.copy():
+        grammar[var] = list(set(grammar[var]))
+    return grammar
+
+def removeNoProd(grammar):
+    # remove no production variables
+    for var in grammar.copy():
+        if len(grammar[var]) == 0:
+            del grammar[var]
+    return grammar
+
+def removeBlankProd(grammar):
     for var in grammar.copy():
         for prod in grammar[var].copy():
-            if prod == epsilon:
+            if prod == "":
                 grammar[var].remove(prod)
-                for var2 in grammar:
-                    for prod2 in grammar[var2]:
-                        if var in prod2:
-                            grammar[var2].append(prod2.replace(var, epsilon))
-    grammar = replaceEpsilon(grammar)
     return grammar
+
 
 def replaceEpsilon(grammar):
     found = False
@@ -66,6 +158,7 @@ def replaceEpsilon(grammar):
                     grammar[var].remove(prod)
                 else:
                     np = prod.replace(epsilon, '')
+                    np = np.strip()
                     # print(np)
                     grammar[var].append(np)
                     grammar[var].remove(prod)
@@ -79,12 +172,11 @@ def removeUnit(grammar):
             if " " not in prod:
                 # print("p",p)
                 if prod != var and prod not in done and not(isTerminal(prod)):
-                    print(prod)
+                    # print(prod)
                     grammar[var].remove(prod)
                     for p2 in grammar[prod].copy():
-                        # print("l",l)
                         grammar[var].append(p2) 
-                    done.append(prod)       
+                    done.append(prod)
     return grammar
 
 def replaceTerminal(grammar):
@@ -188,6 +280,9 @@ def makeTwoVar(grammar):
                     grammar[newvar2] = [list_prod[n-2] + " " + list_prod[n-1]]
                     variable.append(newvar)
                     variable.append(newvar2)
+
+    grammar = removeDuplicateProd(grammar)
+    grammar = removeNoProd(grammar)
     return grammar
                 
 
@@ -197,28 +292,33 @@ def printgrammar(grammar):
         
 
 if __name__ == '__main__':
-    grammar = parsingCFG('src/grammar.txt')
+    cfg = parsingCFG('test/cfgconv.txt')
+    grammar = cfg.copy()
     print("Original Grammar:")
+    printgrammar(grammar)
+
+
     # print(grammar)
     # print(variable)
     # print(terminal)
     # printgrammar(grammar)
+    # removeNullDewa(grammar)
     nulls = removeNull(grammar)
-    # print("Grammar after removing null productions:")
-    # # printgrammar(nulls)
+    print("Grammar after removing null productions:")
+    printgrammar(nulls)
     unit = removeUnit(nulls)
-    # print("Grammar after removing unit productions:")
-    # # printgrammar(unit)
+    print("Grammar after removing unit productions:")
+    printgrammar(unit)
     replaceTerma = replaceTerminal(unit)
-    # print("Grammar after replacing terminals:")
-    # # printgrammar(replaceTerma)
+    print("Grammar after replacing terminals:")
+    printgrammar(replaceTerma)
+    print("Grammar after removing invalid productions:")
     invalid = removeInvalid(replaceTerma)
-    # print("Grammar after removing invalid productions:")
-    # # printgrammar(invalid)
+    printgrammar(invalid)
+    print("Grammar after making two variable productions:")
     twoVar = makeTwoVar(invalid)
-    # print("Grammar after making two variable productions:")
-    # # printgrammar(twoVar)
-    # output
+    printgrammar(twoVar)
+    # # output
     cnf = twoVar
     filename = "test/cnf.txt"
     with open(filename, 'w') as f:
