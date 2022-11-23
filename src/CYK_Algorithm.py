@@ -21,7 +21,13 @@ class CYK:
 
                 i = 2
                 while i < len(cfg):
-                    if(cfg[i][0] == "\'"): # terminal
+                    if(cfg[i][0] == "\'" and i+1 < len(cfg) and cfg[i+1][0] == "\'"):
+                        space = ' '
+                        if space not in self.TerminalGrammar.keys():
+                            self.TerminalGrammar[space] = []
+                        self.TerminalGrammar[space].append(leftVar)
+                        i+=3
+                    elif(cfg[i][0] == "\'"): # terminal
                         terminal = cfg[i][1:len(cfg[i])-1]
                         if terminal not in self.TerminalGrammar.keys(): # create key if not exist
                             self.TerminalGrammar[terminal] = []
@@ -70,10 +76,7 @@ if __name__ == "__main__":
     import os
     current_directory = os.path.dirname(__file__)
     parent_directory = os.path.split(current_directory)[0]
-    grammarpath = parent_directory + "\\test" + "\\test_cyk_grammar.txt"
+    grammarpath = parent_directory + "\\test" + "\\cnf2.txt"
 
-    # testing grammar dari latihan pak rila :D
     tmp.insert_grammar(grammarpath)
-    print(tmp.check_grammar("ababa"))
-    print(tmp.check_grammar("baaab"))
-    print(tmp.check_grammar("aabab"))
+    print(tmp.check_grammar("vartemp "))
