@@ -50,20 +50,6 @@ def filler(word, from_char, to_char):
     return (''.join(o) for o in product(*options))
 
 def removeNull(grammar):
-    # remove null productions in CFG
-    # removed = []
-    # for var in grammar.copy():
-    #     for prod in grammar[var].copy():
-    #         if prod == epsilon:
-    #             removed.append(var)
-    #             for v in grammar.copy():
-    #                 for p in grammar[v].copy():
-    #                     if var in p:
-    #                         newp = list(filler(p, var, epsilon))
-    #                         for np in newp:
-    #                             if np not in grammar[v]:
-    #                                 grammar[v].append(np)
-
     copy_grammar = grammar.copy()
 
     set_epsilon = set()
@@ -166,17 +152,43 @@ def replaceEpsilon(grammar):
     return grammar
 
 def removeUnit(grammar):
+    # for var in grammar.copy():
+    #     done = []
+    #     for prod in grammar[var].copy():
+    #         if " " not in prod:
+    #             # print("p",p)
+    #             if prod != var and prod not in done and not(isTerminal(prod)):
+    #                 # print(prod)
+    #                 grammar[var].remove(prod)
+    #                 for p2 in grammar[prod].copy():
+    #                     grammar[var].append(p2) 
+
+    loop = True
+    done = []
     for var in grammar.copy():
-        done = []
-        for prod in grammar[var].copy():
-            if " " not in prod:
-                # print("p",p)
-                if prod != var and prod not in done and not(isTerminal(prod)):
-                    # print(prod)
-                    grammar[var].remove(prod)
-                    for p2 in grammar[prod].copy():
-                        grammar[var].append(p2) 
-                    done.append(prod)
+        # print("var",var)
+        done.clear()
+        loop = True
+        while(loop):
+            loop = False
+            for prod in grammar[var].copy():
+                # print("prod", prod)
+                if " " not in (prod.strip()) :
+                    # print("len1",prod)
+                    # print("p",p)
+                    if prod != var and prod not in done and not(isTerminal(prod)):
+                        # print("not in done",prod)
+                        # print(prod)
+                        grammar[var].remove(prod)
+                        for p2 in grammar[prod].copy():
+                            if p2 != var:
+                                # print("done", prod)
+                                grammar[var].append(p2)
+                                # print(var, "->" ,p2)
+                                loop = True
+                                done.append(prod)
+                        
+    grammar = removeDuplicateProd(grammar)
     return grammar
 
 def replaceTerminal(grammar):
@@ -252,25 +264,43 @@ def removeInvalid(grammar):
 
 def makeTwoVar(grammar):
     # make two variable productions
+    newProd = {}
     i = 0
+    newvar = "V" + str(i)
+    while newvar in variable:
+        i += 1
+        newvar = "V" + str(i)
+    i += 1
+    newvar2 = "V" + str(i)
     for var in grammar.copy():
         for prod in grammar[var].copy():
             list_prod = []
             for p in prod.split():
                 list_prod.append(p)
             if len(list_prod) > 2:
-                newvar = "V" + str(i)
+                n = len(list_prod)
+                # if n == 3:
+                #     if list_prod[1] + " " + list_prod[2]  in newProd:
+                #         print("dict",list_prod[1] + " " + list_prod[2])
+                #         newvar = newProd[list_prod[1] + " " + list_prod[2]]
+                # elif n > 3:
+                #     if list_prod[n-2] + " " + list_prod[n-1] in newProd:
+                #         newvar2 = newProd[list_prod[n-2] + " " + list_prod[n-1]]
+                #     if list_prod[1] + " " + newvar2 in newProd:
+                #         newvar = newProd[list_prod[1] + " " + newvar2]
+                # else: 
                 while newvar in variable:
                     i += 1
                     newvar = "V" + str(i)
                 i += 1
                 newvar2 = "V" + str(i)
-                n = len(list_prod)
                 if n == 3:
                     grammar[var].remove(prod)
                     grammar[var].append(list_prod[0] + " " + newvar)
                     grammar[newvar] = [list_prod[1] + " " + list_prod[2]]
                     variable.append(newvar)
+                    # newProd[list_prod[1] + " " + list_prod[2]] = newvar
+                    # print("newprod",list_prod[1] + " " + list_prod[2])
                 else:
                     grammar[var].remove(prod)
                     grammar[var].append(list_prod[0] + " " + newvar)
@@ -280,6 +310,8 @@ def makeTwoVar(grammar):
                     grammar[newvar2] = [list_prod[n-2] + " " + list_prod[n-1]]
                     variable.append(newvar)
                     variable.append(newvar2)
+                    # newProd[list_prod[n-2] + " " + list_prod[n-1]] = newvar2
+                    # newProd[list_prod[1] + " " + newvar2] = newvar
 
     grammar = removeDuplicateProd(grammar)
     grammar = removeNoProd(grammar)
@@ -292,7 +324,7 @@ def printgrammar(grammar):
         
 
 if __name__ == '__main__':
-    cfg = parsingCFG('test/cfgconv.txt')
+    cfg = parsingCFG('src/grammar.txt')
     grammar = cfg.copy()
     print("Original Grammar:")
     printgrammar(grammar)
