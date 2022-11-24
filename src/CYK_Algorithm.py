@@ -76,7 +76,7 @@ if __name__ == "__main__":
     import os
     current_directory = os.path.dirname(__file__)
     parent_directory = os.path.split(current_directory)[0]
-    grammarpath = parent_directory + "\\test" + "\\cnf2.txt"
+    grammarpath = parent_directory + "\\test" + "\\cnf.txt"
 
     tmp.insert_grammar(grammarpath)
-    print(tmp.check_grammar("vartemp "))
+    print(tmp.check_grammar("temp = object.method() ;   "))
