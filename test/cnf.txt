@@ -1,74 +1,74 @@
-S -> ' ' | BODY1 S | STATEMENT S | V0 SPACE | FUNCBODY S
-ALPHABETS -> 'J' | 'D' | 'U' | 'c' | 'M' | 'g' | 'l' | 's' | 'n' | 'v' | 'b' | 'N' | 'X' | 'o' | 'j' | 'a' | 'C' | 'r' | 'R' | 'w' | 'z' | 'I' | 't' | 'd' | 'f' | 'P' | 'E' | 'T' | 'W' | 'L' | 'm' | 'S' | 'V' | 'B' | 'Y' | 'F' | 'H' | 'Z' | 'G' | 'e' | 'k' | 'u' | 'x' | 'A' | 'y' | 'h' | 'q' | 'O' | 'p' | 'i' | 'K' | 'Q'
-DIGITS -> '8' | '1' | '5' | '9' | '7' | '2' | '0' | '4' | '6' | '3'
-OTHERS -> '-' | '}' | '#' | '&' | ')' | '=' | '~' | '_' | '+' | ',' | '@' | '(' | '>' | '[' | '|' | '?' | ']' | '!' | '^' | '\' | ';' | '`' | ':' | '<' | '$' | '.' | '{' | '*' | '%'
-ARITHMETIC -> '-' | '|' | '*' | '%' | '+' | V1 V1
+S -> FUNCBODY S | ' ' | V0 SPACE | STATEMENT S | BODY1 S
+ALPHABETS -> 'f' | 'p' | 'U' | 'N' | 'z' | 'c' | 'o' | 'P' | 'V' | 'Y' | 'w' | 'A' | 'h' | 'm' | 'T' | 'G' | 'u' | 'i' | 's' | 'W' | 'L' | 'd' | 't' | 'R' | 'v' | 'D' | 'F' | 'j' | 'b' | 'E' | 'a' | 'y' | 'Z' | 'J' | 'O' | 'n' | 'q' | 'K' | 'e' | 'B' | 'H' | 'C' | 'M' | 'g' | 'l' | 'Q' | 'X' | 'x' | 'k' | 'I' | 'r' | 'S'
+DIGITS -> '1' | '4' | '3' | '7' | '9' | '5' | '0' | '2' | '6' | '8'
+OTHERS -> '`' | ':' | '-' | '~' | '(' | '*' | '|' | '#' | ';' | ',' | '>' | '_' | '%' | '?' | '=' | '[' | '@' | ')' | '+' | '\' | ']' | '!' | '<' | '^' | '}' | '&' | '.' | '{' | '$'
+ARITHMETIC -> '|' | V1 V1 | '+' | '-' | '%' | '*'
 LOGICAL1 -> V2 V2 | OR OR
-LOGICAL2 -> V3 V3 | V5 V3 | '>' | V4 V3 | '<'
-BITWISE -> '^' | V4 V36 | V5 V5 | '&' | '|' | V4 V4 | '~'
+LOGICAL2 -> V5 V3 | '>' | '<' | V3 V3 | V4 V3
+BITWISE -> '|' | '^' | V4 V4 | '~' | '&' | V5 V5 | V4 V36
 EOS -> V6 SPACEOREMPTY
-SPACE -> V0 SPACE | ' '
-SPACEOREMPTY -> V0 SPACE | ' '
+SPACE -> ' ' | V0 SPACE
+SPACEOREMPTY -> ' ' | V0 SPACE
 LET -> V8 V38
 VAR -> V12 V40
 CONST -> V13 V42
-CHARLIST1 -> 'J' | 'D' | 'U' | 'c' | 'M' | 'g' | 'l' | 's' | 'n' | 'v' | 'b' | 'N' | 'X' | 'o' | 'a' | 'j' | '_' | 'C' | 'r' | 'R' | 'w' | 'z' | 'I' | 't' | 'd' | 'f' | 'P' | 'E' | 'T' | 'W' | 'L' | 'm' | 'S' | 'V' | 'B' | 'Y' | 'F' | 'H' | 'Z' | 'G' | 'e' | 'k' | 'u' | 'x' | 'A' | 'y' | 'h' | 'q' | 'O' | 'p' | 'i' | 'K' | 'Q'
-CHARLIST2 -> '8' | 'J' | 'D' | 'U' | 'c' | 'M' | 'g' | 'l' | 's' | '5' | '7' | '9' | 'n' | 'v' | '2' | 'b' | 'N' | 'X' | 'o' | 'a' | 'j' | '_' | 'C' | 'r' | 'R' | 'w' | 'z' | 'I' | 't' | 'd' | 'f' | '0' | 'P' | '4' | 'E' | 'T' | 'W' | 'L' | 'm' | 'S' | 'V' | 'B' | 'Y' | 'F' | 'H' | 'Z' | 'G' | 'e' | '3' | 'k' | 'u' | 'x' | 'A' | '1' | '6' | 'y' | 'h' | 'q' | 'O' | 'p' | 'i' | 'K' | 'Q'
-VARCHAR -> '8' | 'J' | 'D' | 'U' | 'c' | 'M' | 'g' | 'l' | 's' | '5' | '7' | '9' | 'n' | 'v' | '2' | 'b' | 'N' | 'X' | 'o' | 'a' | 'j' | '_' | 'C' | 'r' | 'R' | 'w' | 'z' | 'I' | 't' | 'd' | 'f' | '0' | 'P' | '4' | 'E' | 'T' | 'W' | 'L' | 'm' | 'S' | 'V' | 'B' | 'Y' | 'F' | 'H' | 'Z' | 'G' | 'e' | '3' | 'k' | 'u' | 'x' | 'A' | '1' | '6' | 'y' | 'h' | 'q' | CHARLIST2 VARCHAR | 'O' | 'p' | 'i' | 'K' | 'Q'
-VARIABLE -> 'J' | 'D' | 'U' | 'c' | CHARLIST1 VARCHAR | 'g' | 'l' | 's' | 'M' | 'n' | 'v' | 'b' | 'N' | 'X' | 'o' | 'a' | 'j' | '_' | 'C' | 'r' | 'R' | 'w' | 'z' | 'I' | 't' | 'd' | 'f' | 'P' | 'E' | 'T' | 'W' | 'L' | 'm' | 'S' | 'V' | 'B' | 'Y' | 'F' | 'H' | 'Z' | 'G' | 'e' | 'k' | 'u' | 'x' | 'A' | 'y' | 'h' | 'q' | 'O' | 'p' | 'i' | 'K' | 'Q'
+CHARLIST1 -> 'f' | 'p' | 'U' | 'N' | 'z' | 'c' | 'o' | 'P' | 'V' | '_' | 'Y' | 'w' | 'A' | 'h' | 'm' | 'T' | 'G' | 'u' | 'i' | 's' | 'W' | 'L' | 'd' | 't' | 'R' | 'v' | 'D' | 'F' | 'j' | 'b' | 'E' | 'a' | 'y' | 'Z' | 'J' | 'O' | 'n' | 'q' | 'K' | 'e' | 'B' | 'H' | 'C' | 'M' | 'g' | 'l' | 'Q' | 'X' | 'x' | 'k' | 'I' | 'r' | 'S'
+CHARLIST2 -> 'f' | 'p' | 'U' | '1' | 'N' | '4' | 'z' | 'c' | 'o' | 'P' | '0' | '2' | '8' | 'V' | '_' | 'Y' | 'w' | 'A' | 'h' | 'm' | 'T' | 'G' | 'u' | 'i' | 's' | 'W' | 'L' | 'd' | 't' | 'R' | '9' | 'v' | 'D' | 'F' | '3' | '7' | 'j' | 'b' | 'E' | 'a' | 'y' | 'Z' | '5' | 'J' | 'O' | 'n' | '6' | 'q' | 'K' | 'e' | 'B' | 'H' | 'C' | 'M' | 'g' | 'l' | 'Q' | 'X' | 'x' | 'k' | 'I' | 'r' | 'S'
+VARCHAR -> 'f' | 'p' | 'U' | '1' | 'N' | '4' | 'z' | 'c' | 'o' | 'P' | '0' | '2' | '8' | 'V' | '_' | 'Y' | 'w' | 'A' | 'h' | 'm' | 'T' | 'G' | 'u' | 'i' | 's' | 'W' | 'L' | 'd' | 't' | 'R' | '9' | 'v' | 'D' | 'F' | '3' | '7' | 'j' | 'b' | 'E' | 'a' | 'y' | 'Z' | '5' | 'J' | 'O' | 'n' | '6' | 'q' | 'K' | CHARLIST2 VARCHAR | 'e' | 'B' | 'H' | 'C' | 'M' | 'g' | 'l' | 'Q' | 'X' | 'x' | 'k' | 'I' | 'r' | 'S'
+VARIABLE -> 'f' | 'p' | 'U' | 'N' | 'z' | 'c' | 'o' | 'P' | 'V' | '_' | 'Y' | 'w' | 'A' | 'h' | 'm' | 'T' | 'G' | 'u' | 'i' | 's' | 'W' | 'L' | 'd' | 't' | 'R' | 'v' | 'D' | 'F' | 'j' | 'b' | 'E' | 'a' | 'y' | 'Z' | 'J' | 'O' | 'n' | 'q' | CHARLIST1 VARCHAR | 'e' | 'K' | 'B' | 'H' | 'C' | 'M' | 'g' | 'l' | 'Q' | 'X' | 'x' | 'k' | 'I' | 'r' | 'S'
 COMMENT -> OR V45
-OBJECTNAME -> 'J' | 'D' | 'U' | 'c' | 'M' | 'g' | 'l' | 's' | 'n' | 'v' | 'b' | 'N' | 'X' | 'o' | 'j' | 'a' | 'C' | 'r' | 'R' | 'w' | 'z' | 'I' | 't' | 'd' | 'f' | 'P' | 'E' | 'T' | 'W' | 'L' | 'm' | 'S' | 'V' | 'B' | 'Y' | 'F' | 'H' | 'Z' | 'G' | 'e' | 'k' | 'u' | 'x' | 'A' | 'y' | 'h' | 'q' | 'O' | 'p' | 'i' | 'K' | 'Q' | ALPHABETS OBJECTNAME
+OBJECTNAME -> 'f' | 'p' | 'U' | 'N' | 'z' | 'c' | 'o' | 'P' | 'V' | ALPHABETS OBJECTNAME | 'Y' | 'w' | 'A' | 'h' | 'm' | 'T' | 'G' | 'u' | 'i' | 's' | 'W' | 'L' | 'd' | 't' | 'R' | 'v' | 'D' | 'F' | 'j' | 'b' | 'E' | 'a' | 'y' | 'Z' | 'J' | 'O' | 'n' | 'q' | 'K' | 'e' | 'B' | 'H' | 'C' | 'M' | 'g' | 'l' | 'Q' | 'X' | 'x' | 'k' | 'I' | 'r' | 'S'
 OBJECT -> OBJECTNAME V47 | OBJECTNAME V49
-METHOD -> ALPHABETS METHOD | ALPHABETS V51
-INT -> '8' | '1' | '5' | '9' | '7' | '2' | DIGITS INT | '0' | '4' | '6' | '3'
-PD -> '8' | '1' | '5' | PD DIGITS | '9' | '7' | '2' | '0' | '4' | '6' | '3'
-FD -> '8' | '1' | '5' | '9' | '7' | FD DIGITS | '2' | '0' | '4' | '6' | '3'
+METHOD -> ALPHABETS V51 | ALPHABETS METHOD
+INT -> DIGITS INT | '1' | '4' | '3' | '7' | '9' | '5' | '0' | '2' | '6' | '8'
+PD -> '1' | PD DIGITS | '4' | '3' | '7' | '9' | '5' | '0' | '2' | '6' | '8'
+FD -> FD DIGITS | '1' | '4' | '3' | '7' | '9' | '5' | '0' | '2' | '6' | '8'
 FLOAT -> PD V53
 STRING -> V20 V55
-STRINGINS -> OTHERS SPACEOREMPTY | ALPHABETS SPACEOREMPTY | DIGITS SPACEOREMPTY | SPACEOREMPTY V62 | SPACEOREMPTY V60 | SPACEOREMPTY V58
+STRINGINS -> SPACEOREMPTY V62 | ALPHABETS SPACEOREMPTY | SPACEOREMPTY V58 | OTHERS SPACEOREMPTY | DIGITS SPACEOREMPTY | SPACEOREMPTY V60
 NULL -> V14 V64
 TRUE -> V9 V66
 FALSE -> V22 V68
-BOOLEAN -> V22 V73 | V9 V71
-DATATYPE1 -> V22 V85 | '8' | '1' | '5' | V20 V78 | '9' | '7' | PD V76 | OBJECTNAME V90 | '2' | DIGITS INT | V9 V83 | '0' | '4' | V14 V81 | OBJECTNAME V88 | '6' | '3'
-DATATYPE2 -> '8' | '1' | '5' | '9' | '7' | V20 V94 | '2' | DIGITS INT | PD V92 | '0' | '4' | '6' | '3'
-DATATYPE3 -> '8' | '1' | '5' | PD V97 | '9' | '7' | '2' | DIGITS INT | '0' | '4' | '6' | '3'
+BOOLEAN -> V9 V71 | V22 V73
+DATATYPE1 -> DIGITS INT | PD V76 | V20 V78 | V9 V83 | OBJECTNAME V90 | '1' | '4' | '3' | '7' | '9' | '5' | OBJECTNAME V88 | V22 V85 | '0' | V14 V81 | '2' | '6' | '8'
+DATATYPE2 -> DIGITS INT | '1' | '4' | '3' | '7' | '9' | PD V92 | V20 V94 | '5' | '0' | '2' | '6' | '8'
+DATATYPE3 -> DIGITS INT | '1' | PD V97 | '4' | '3' | '7' | '9' | '5' | '0' | '2' | '6' | '8'
 ASSIGN1 -> VARIABLE V103 | VARIABLE V99
 ASSIGN2 -> VARIABLE V107
 ASSIGN2CONT1 -> SPACEOREMPTY V112 | SPACEOREMPTY V110
-ASSIGN2CONT2 -> V0 SPACE | ' ' | SPACEOREMPTY V114
-ASSIGN3 -> VARIABLE V128 | VARIABLE V116 | VARIABLE V122
+ASSIGN2CONT2 -> ' ' | SPACEOREMPTY V114 | V0 SPACE
+ASSIGN3 -> VARIABLE V122 | VARIABLE V116 | VARIABLE V128
 ASSIGN4 -> VARIABLE V134
-ASSIGN4CONT1 -> V0 SPACE | ' ' | SPACEOREMPTY V138
+ASSIGN4CONT1 -> ' ' | SPACEOREMPTY V138 | V0 SPACE
 ASSIGN4CONT2 -> SPACEOREMPTY V140
-DECLARE -> SPACEOREMPTY V144 | SPACEOREMPTY V146 | SPACEOREMPTY V142
+DECLARE -> VAR V144 | CONST V146 | LET V142
 EXPRESSION -> FLOAT EXPRCONT1 | INT EXPRCONT1
-EXPRCONT1 -> ARITHMETIC EXPRCONT2 | SPACEOREMPTY EXPRCONT1 | BITWISE EXPRCONT2 | SPACEOREMPTY EXPRESSION
-EXPRCONT2 -> ARITHMETIC EXPRCONT2 | BITWISE EXPRCONT2 | SPACEOREMPTY EXPRESSION
+EXPRCONT1 -> ARITHMETIC EXPRCONT2 | SPACEOREMPTY EXPRESSION | SPACEOREMPTY EXPRCONT1 | BITWISE EXPRCONT2
+EXPRCONT2 -> ARITHMETIC EXPRCONT2 | SPACEOREMPTY EXPRESSION | BITWISE EXPRCONT2
 INCREMENTORDECREMENT -> VARIABLE V151 | VARIABLE V148
 CONDITIONAL1 -> DATATYPE1 V157 | VARIABLE V154
-CONDITIONAL2 -> V0 SPACE | ' ' | SPACEOREMPTY V160
-IF -> V25 V162 | V25 V181 | V25 V171
-ELIF -> V7 V191 | V7 V205 | V7 V220
+CONDITIONAL2 -> ' ' | SPACEOREMPTY V160 | V0 SPACE
+IF -> V25 V181 | V25 V171 | V25 V162
+ELIF -> V7 V191 | V7 V220 | V7 V205
 ELSE -> V7 V235
-STATEMENT -> DECLARE V248 | ' ' | TRY STATEMENT | THROW V250 | FOR STATEMENT | SWITCH STATEMENT | WHILE STATEMENT | V0 SPACE | ASSIGN1 V240 | ASSIGN2 V242 | INCREMENTORDECREMENT V252 | COMMENT STATEMENT | IF STATEMENT | ASSIGN4 V246 | ASSIGN3 V244
+STATEMENT -> IF STATEMENT | FOR STATEMENT | COMMENT STATEMENT | THROW V250 | SWITCH STATEMENT | ASSIGN1 V240 | ' ' | ASSIGN3 V244 | DECLARE V248 | ASSIGN4 V246 | ASSIGN2 V242 | V0 SPACE | WHILE STATEMENT | INCREMENTORDECREMENT V252 | TRY STATEMENT
 BODY1 -> V26 V254
-BODY2 -> ASSIGN3 V260 | ' ' | TRY STATEMENT | ASSIGN2 V258 | THROW V266 | FOR STATEMENT | SWITCH STATEMENT | WHILE STATEMENT | V0 SPACE | ASSIGN4 V262 | INCREMENTORDECREMENT V268 | ASSIGN1 V256 | DECLARE V264 | COMMENT STATEMENT | IF STATEMENT
-LOOPBODY -> ' ' | THROW V280 | FOR STATEMENT | BREAK LOOPBODY | IF STATEMENT | DECLARE V278 | TRY STATEMENT | ASSIGN4 V276 | V28 V284 | SWITCH STATEMENT | STATEMENT LOOPBODY | ASSIGN3 V274 | ASSIGN2 V272 | V0 SPACE | V13 V289 | CONTINUE LOOPBODY | WHILE STATEMENT | INCREMENTORDECREMENT V282 | COMMENT STATEMENT | ASSIGN1 V270
-FUNCBODY -> ' ' | FOR STATEMENT | V11 V341 | IF STATEMENT | STATEMENT FUNCBODY | V11 V317 | TRY STATEMENT | ASSIGN3 V301 | INCREMENTORDECREMENT V309 | SWITCH STATEMENT | V11 V333 | ASSIGN2 V299 | ASSIGN4 V303 | V0 SPACE | V11 V325 | DECLARE V305 | V11 V311 | THROW V307 | WHILE STATEMENT | ASSIGN1 V297 | RETURN FUNCBODY | COMMENT STATEMENT
-SWITCH -> V16 V362 | V16 V375 | V16 V349
-CASE -> V33 V398 | V13 V388
+BODY2 -> IF STATEMENT | FOR STATEMENT | COMMENT STATEMENT | ASSIGN3 V260 | DECLARE V264 | ASSIGN2 V258 | THROW V266 | SWITCH STATEMENT | ASSIGN1 V256 | ASSIGN4 V262 | ' ' | INCREMENTORDECREMENT V268 | V0 SPACE | WHILE STATEMENT | TRY STATEMENT
+LOOPBODY -> FOR STATEMENT | BREAK LOOPBODY | TRY STATEMENT | COMMENT STATEMENT | V13 V289 | DECLARE V278 | ASSIGN1 V270 | STATEMENT LOOPBODY | WHILE STATEMENT | ASSIGN3 V274 | IF STATEMENT | ASSIGN4 V276 | V28 V284 | ASSIGN2 V272 | V0 SPACE | INCREMENTORDECREMENT V282 | THROW V280 | SWITCH STATEMENT | ' ' | CONTINUE LOOPBODY
+FUNCBODY -> FOR STATEMENT | V11 V317 | TRY STATEMENT | COMMENT STATEMENT | V11 V311 | WHILE STATEMENT | V11 V325 | IF STATEMENT | DECLARE V305 | STATEMENT FUNCBODY | ASSIGN1 V297 | V0 SPACE | ASSIGN2 V299 | THROW V307 | INCREMENTORDECREMENT V309 | V11 V341 | ASSIGN4 V303 | SWITCH STATEMENT | ' ' | RETURN FUNCBODY | ASSIGN3 V301 | V11 V333
+SWITCH -> V16 V362 | V16 V349 | V16 V375
+CASE -> V13 V388 | V33 V398
 DEFAULT -> V33 V408
-PARAM -> '8' | DATATYPE1 V418 | '5' | ' ' | 'D' | 'c' | CHARLIST1 VARCHAR | '9' | '7' | 'g' | 'l' | 's' | 'M' | 'n' | 'v' | V9 V431 | '2' | 'b' | 'N' | 'X' | 'o' | 'a' | '_' | 'j' | VARIABLE V421 | 'C' | 'r' | 'R' | 'w' | 'z' | 'I' | 't' | 'd' | 'f' | '0' | '4' | 'P' | 'E' | 'T' | 'W' | V14 V429 | 'J' | 'L' | 'm' | 'S' | 'V' | 'B' | 'Y' | 'F' | 'H' | V0 SPACE | OBJECTNAME V436 | 'Z' | 'G' | V22 V433 | 'U' | 'e' | '6' | '3' | 'k' | '1' | 'u' | 'x' | 'A' | PD V424 | 'y' | 'h' | 'q' | 'O' | OBJECTNAME V438 | DIGITS INT | 'p' | V20 V426 | 'i' | 'K' | 'Q'
+PARAM -> 'f' | 'p' | 'U' | '1' | 'N' | '4' | 'z' | 'c' | 'o' | 'P' | '0' | '2' | '8' | DIGITS INT | 'V' | VARIABLE V421 | OBJECTNAME V436 | V9 V431 | '_' | 'Y' | 'w' | 'A' | 'h' | 'm' | 'T' | 'G' | DATATYPE1 V418 | V20 V426 | 'u' | V22 V433 | 'i' | 's' | 'W' | 'L' | 'd' | '9' | 't' | 'R' | 'v' | 'D' | 'F' | V14 V429 | PD V424 | '3' | '7' | 'j' | 'b' | 'E' | 'a' | 'y' | '5' | 'Z' | 'J' | V0 SPACE | 'O' | 'n' | OBJECTNAME V438 | '6' | 'q' | CHARLIST1 VARCHAR | 'e' | 'K' | 'B' | 'H' | 'C' | 'M' | 'g' | 'l' | ' ' | 'Q' | 'X' | 'x' | 'k' | 'I' | 'r' | 'S'
 FUNCTION -> V22 V440
 WHILE -> V31 V459
 FOR -> V22 V473 | V22 V495
 THROW -> V9 V521
 ERR -> V7 V527
 TRY -> V9 V529
-CATCH -> V13 V545 | V13 V533
+CATCH -> V13 V533 | V13 V545
 FINALLY -> V22 V557
-RETURN -> V11 V579 | V11 V565 | V11 V587 | V11 V571 | V11 V595
+RETURN -> V11 V595 | V11 V571 | V11 V565 | V11 V579 | V11 V587
 BREAK -> V28 V603
 CONTINUE -> V13 V608
 OR -> '|'
@@ -194,9 +194,9 @@ V136 -> SPACEOREMPTY V137
 V137 -> DATATYPE2 ASSIGN4CONT1
 V138 -> V23 ASSIGN4CONT2
 V140 -> DATATYPE2 ASSIGN2CONT1
-V142 -> LET ASSIGN1
-V144 -> VAR ASSIGN1
-V146 -> CONST ASSIGN1
+V142 -> SPACEOREMPTY ASSIGN1
+V144 -> SPACEOREMPTY ASSIGN1
+V146 -> SPACEOREMPTY ASSIGN1
 V148 -> SPACEOREMPTY V149
 V149 -> V23 V150
 V150 -> V23 SPACEOREMPTY
