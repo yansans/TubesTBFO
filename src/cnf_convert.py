@@ -83,7 +83,7 @@ def removeNull(grammar):
     # printgrammar(grammar)
     removeBlankProd(grammar)
     # printgrammar(grammar)
-    removeDuplicateProd(grammar)
+    # removeDuplicateProd(grammar)
     # printgrammar(grammar)
     return grammar
 
@@ -152,16 +152,6 @@ def replaceEpsilon(grammar):
     return grammar
 
 def removeUnit(grammar):
-    # for var in grammar.copy():
-    #     done = []
-    #     for prod in grammar[var].copy():
-    #         if " " not in prod:
-    #             # print("p",p)
-    #             if prod != var and prod not in done and not(isTerminal(prod)):
-    #                 # print(prod)
-    #                 grammar[var].remove(prod)
-    #                 for p2 in grammar[prod].copy():
-    #                     grammar[var].append(p2) 
 
     loop = True
     done = []
@@ -188,7 +178,7 @@ def removeUnit(grammar):
                                 loop = True
                                 done.append(prod)
                         
-    grammar = removeDuplicateProd(grammar)
+    # grammar = removeDuplicateProd(grammar)
     return grammar
 
 def replaceTerminal(grammar):
@@ -270,25 +260,18 @@ def makeTwoVar(grammar):
     while newvar in variable:
         i += 1
         newvar = "V" + str(i)
-    i += 1
     newvar2 = "V" + str(i)
+    found1 = False
+    found2 = False
     for var in grammar.copy():
         for prod in grammar[var].copy():
             list_prod = []
             for p in prod.split():
                 list_prod.append(p)
             if len(list_prod) > 2:
+                found1 = False
+                found2 = False
                 n = len(list_prod)
-                # if n == 3:
-                #     if list_prod[1] + " " + list_prod[2]  in newProd:
-                #         print("dict",list_prod[1] + " " + list_prod[2])
-                #         newvar = newProd[list_prod[1] + " " + list_prod[2]]
-                # elif n > 3:
-                #     if list_prod[n-2] + " " + list_prod[n-1] in newProd:
-                #         newvar2 = newProd[list_prod[n-2] + " " + list_prod[n-1]]
-                #     if list_prod[1] + " " + newvar2 in newProd:
-                #         newvar = newProd[list_prod[1] + " " + newvar2]
-                # else: 
                 while newvar in variable:
                     i += 1
                     newvar = "V" + str(i)
@@ -299,19 +282,22 @@ def makeTwoVar(grammar):
                     grammar[var].append(list_prod[0] + " " + newvar)
                     grammar[newvar] = [list_prod[1] + " " + list_prod[2]]
                     variable.append(newvar)
-                    # newProd[list_prod[1] + " " + list_prod[2]] = newvar
-                    # print("newprod",list_prod[1] + " " + list_prod[2])
+
                 else:
+                    print(n)
                     grammar[var].remove(prod)
                     grammar[var].append(list_prod[0] + " " + newvar)
                     grammar[newvar] = [list_prod[1] + " " + newvar2]
-                    for j in range(2, n-2):
-                        grammar[newvar2] = [list_prod[j] + " " + newvar2]
-                    grammar[newvar2] = [list_prod[n-2] + " " + list_prod[n-1]]
                     variable.append(newvar)
+                    for j in range(2, n-2):
+                        i += 1
+                        newvar = "V" + str(i)
+                        grammar[newvar2] = [list_prod[j] + " " + newvar]
+                        variable.append(newvar)
+                        variable.append(newvar2)
+                        newvar2 = "V" + str(i)
+                    grammar[newvar2] = [list_prod[n-2] + " " + list_prod[n-1]]
                     variable.append(newvar2)
-                    # newProd[list_prod[n-2] + " " + list_prod[n-1]] = newvar2
-                    # newProd[list_prod[1] + " " + newvar2] = newvar
 
     grammar = removeDuplicateProd(grammar)
     grammar = removeNoProd(grammar)
