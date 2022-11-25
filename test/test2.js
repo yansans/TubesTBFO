@@ -3,7 +3,7 @@ var y = 1;
 let N = 10 ;  
 
 while ( x  <=  10 ) {
-    console.log ( "LosPollosHermanos" ) ;
+    console.log( "LosPollosHermanos" ) ;
 
     for ( let i = 0 ; i < 6 ; i ++ ) {
         var temp = 1 ; 
@@ -13,7 +13,7 @@ while ( x  <=  10 ) {
     x ++ ; 
 
     if ( x === 5 ) {
-        console.log () ;
+        console.log() ;
     }
 }
 
