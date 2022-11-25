@@ -45,7 +45,7 @@ def parsingCFG(file):
     terminal.append("' '")
     return grammar
     
-def filler(word, from_char, to_char):
+def productList(word, from_char, to_char):
     options = [(c,) if c != from_char else (from_char, to_char) for c in word]
     return (''.join(o) for o in product(*options))
 
@@ -73,7 +73,7 @@ def removeNull(grammar):
         for var in grammar.copy():
             for prod in grammar[var].copy():
                 if var_ep in prod:
-                    newp = list(filler(prod, var_ep, epsilon))
+                    newp = list(productList(prod, var_ep, epsilon))
                     for np in newp :
                         if np not in grammar[var]:
                             grammar[var].append(np)
@@ -282,7 +282,6 @@ def makeTwoVar(grammar):
                     grammar[var].append(list_prod[0] + " " + newvar)
                     grammar[newvar] = [list_prod[1] + " " + list_prod[2]]
                     variable.append(newvar)
-
                 else:
                     print(n)
                     grammar[var].remove(prod)
