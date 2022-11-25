@@ -61,6 +61,11 @@ unary_operator = ['+', '-', '++', '--', '!', '~']
 
 ternary_op = ['?', ':']
 
+negative = ['-']
+negative_digits = []
+for i in digits:
+    negative_digits.append('-' + i)
+
 start_state_op = 0
 final_state_op = 1
 secondary_state_op = 2
@@ -79,18 +84,18 @@ for char in operator:
     transition_operator[final_state_op][char] = 2
 for char in unary_operator:
     transition_operator[final_state_op][char] = 1
-for char in second_char:
+for char in second_char + negative_digits:
     transition_operator[final_state_op][char] = 1
 transition_operator[final_state_op][ternary_op[0]] = 3
 
 # secondary state
 transition_operator[secondary_state_op] = {}
-for char in second_char:
+for char in second_char + negative_digits:
     transition_operator[secondary_state_op][char] = 1
 
 # ternary state1
 transition_operator[ternary_state1_op] = {}
-for char in second_char:
+for char in second_char + negative_digits:
     transition_operator[ternary_state1_op][char] = 3
 transition_operator[ternary_state1_op][ternary_op[1]] = 2
 
@@ -120,11 +125,14 @@ def split_operation(operation):
             if op != "":
                 result.append(op)
                 op = ""
+            if var != "":
+                char = var + char
+                var = ""
             result.append(char)
+        elif char in negative:
+            var += char
         elif char in operator + unary_operator + ternary_op:
             op += char
-    if var != "":
-        result.append(var)
     if op != "":
         result.append(op)
     return result
@@ -132,4 +140,4 @@ def split_operation(operation):
 if __name__ == '__main__':
     print(is_legal_variable('a'))
     print(is_legal_variable('var'))
-    print(is_legal_operation('1 \= 1123123'))
+    print(is_legal_operation('1 * -1 / 2'))
