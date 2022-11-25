@@ -46,7 +46,8 @@ class CYK:
 
     def check_grammar(self, string):
         length = len(string) # target string length
-        DPTable = [[set() for __ in range(length)] for _ in range(length)] # CYK Table, matrix of list[string]
+        DPTable = [[set() for _ in range(i+1)] for i in range(length)] # CYK Table, matrix of list[string]
+        memo = dict() # map<string, set<string>> for speed up CYK with look up table
         
         # fill the bottom row with terminal rule
         for j in range(length):
@@ -56,15 +57,19 @@ class CYK:
         # fill other row with cyk DP algorithm
         for i in range(length-2,-1,-1):
             for j in range(i+1):
-                cartesian_product = set()
-                for k in range(length-i):
-                    for A in DPTable[length-k-1][j]:
-                        for B in DPTable[i+k+1][j+k+1]:
-                            cartesian_product.add((A,B))
-                for AB in cartesian_product:
-                    if AB in self.VariableGrammar.keys():
-                        for variable in self.VariableGrammar[AB]:
-                            DPTable[i][j].add(variable)
+                substr = string[j:j + length-i]
+                if substr in memo.keys():
+                    DPTable[i][j] = memo[substr]
+                else:
+                    cartesian_product = set()
+                    for k in range(length-i):
+                        for A in DPTable[length-k-1][j]:
+                            for B in DPTable[i+k+1][j+k+1]:
+                                cartesian_product.add((A,B))
+                    for AB in cartesian_product:
+                        if AB in self.VariableGrammar.keys():
+                            DPTable[i][j].update(self.VariableGrammar[AB])
+                    memo[substr] = DPTable[i][j]
 
         possible = "S" in DPTable[0][0] # string can be reached if the top left CYK Table contain S
         return possible
