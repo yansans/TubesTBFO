@@ -60,8 +60,8 @@ if __name__ == "__main__":
     newstring = newstring.replace(':', '  :')
     newstring = newstring.replace('{', '  {  ')
     newstring = newstring.replace('}', '  }  ')
-    newstring = newstring.replace('[', ' [')
-    newstring = newstring.replace(']', '] ')
+    newstring = newstring.replace('[', ' [ ')
+    newstring = newstring.replace(']', ' ] ')
     # newstring = newstring.replace('"', '     "      ')
     newstring += "     "
     # newstring = newstring.replace('  ', ' ')
