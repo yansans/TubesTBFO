@@ -1,14 +1,15 @@
-function do_something (x) {
+// inputAcc.js
+function do_something(x){
   // This is a sample comment
-    if (x == 0) {
+    if (x == 0){
       return 0;
-    } else if (x + 4 == 1) {
+    } else if (x + 4 == 1){
       if (true) {
         return 3;
       } else {
         return 2;
       }
-    } else if (x == 32) {
+    } else if (x == 32){
       return 4;
     } else {
       return "Momen";

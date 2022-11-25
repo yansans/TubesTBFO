@@ -1,13 +1,13 @@
 let truth = true;
 
 switch ( truth ) {
-    case true :
+    case true:
         console.log(1); 
         break;
-    case false :
+    case false:
         console.log(0); 
         break;  
-    default :   
+    default:   
         break;    
 }
 

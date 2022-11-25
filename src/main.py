@@ -14,10 +14,10 @@ if __name__ == "__main__":
     string = ""
     with open(sys.argv[1], 'r') as source_code:
         for lines in source_code:
-            string += lines.replace('\n', ' ')
+            string += lines.replace('\n', '  ')
 
     string = string.split(" ")
-    # print(string)
+    print(string)
     split = False
     newstring = ""
     for i in string:
@@ -43,6 +43,7 @@ if __name__ == "__main__":
     newstring = newstring.replace(kurung[0],  " " + kurung[0] + '   ')
     newstring = newstring.replace(kurung[1], '   ' + kurung[1]  + " ")
     newstring = newstring.replace(';', '   ;')
+    newstring = newstring.replace(':', '  :')
     # newstring = newstring.replace('"', '     "      ')
     newstring += "     "
     # newstring = newstring.replace('  ', ' ')
