@@ -10,9 +10,8 @@ kurung = ['(' , ')']
 variable = ["let", "var", "const"]
 
 
-
 if __name__ == "__main__":
-    var_list = []
+    var_set = set()
     # cnf_convert.CFG_to_CNF_convert('grammar.txt', 'cnf.txt')
     parser = CYK_Algorithm.CYK()
     parser.insert_grammar('test/cnf.txt')
@@ -24,6 +23,7 @@ if __name__ == "__main__":
     string = string.split(" ")
     # print(string)
     split = False
+    search_var = False
     newstring = ""
     for i in string:
         if len(i) > 1:
@@ -35,16 +35,25 @@ if __name__ == "__main__":
                 split = True 
                 newstring += i + "   "
                 continue
+            elif i in variable:
+                newstring += i + "   "
+                search_var = True
+                continue
             
         if i != '':
             if split:
                 for j in i:
                     newstring += j + "   "
+            elif search_var:
+                search_var = False
+                var_set.add(i)
+                newstring += i + "   "
             else:
                 newstring += i + '   '
         elif i == '':
             newstring += ' '
             split = False
+            search_var = False
     
     newstring = newstring.replace(kurung[0],  " " + kurung[0] + '   ')
     newstring = newstring.replace(kurung[1], '   ' + kurung[1]  + " ")
@@ -56,6 +65,7 @@ if __name__ == "__main__":
     newstring += "     "
     # newstring = newstring.replace('  ', ' ')
     # print(newstring)
+    # print(var_set)
     print("Parsing...")
     start = time.time()
     status = parser.check_grammar(newstring)
@@ -68,6 +78,17 @@ if __name__ == "__main__":
 
     print("Checking Variable...")
     start = time.time()
+    status = True
+    for i in var_set:
+        if not fa.is_legal_variable(i):
+            status = False
+            print("Variable Name Error :", i)
+            break
+    end = time.time()
+    if status:
+        print("Variable Name Accepted")
+    print("Exec time :", round(end - start,2))
+        
 
         
     
