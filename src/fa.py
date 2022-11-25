@@ -11,6 +11,7 @@ other_char = ['_', '$']
 first_char = list(all_letter) + other_char
 second_char = first_char + list(digits)
 
+
 reserved_name = ['break', 'default', 'for', 'return' , 'var' , 'const' , 'delete',
                 'function', 'switch', 'while', 'case', 'else', 'if', 'throw', 'catch',
                 'false', 'let', 'try', 'continue' , 'finally' , 'null', 'true']
@@ -54,39 +55,50 @@ operator = ['+', '-', '*', '/', '%', '+=',
             '-=', '*=', '/=', '%=', '==', '!=', '===', 
             '!==', '>', '<', '>=', '<=', '&&', '||', 
              '&', '|', '^', '<<', '>>', '>>>', 
-            '<<=', '>>=', '>>>=', '=>', '=', '?', ':']
+            '<<=', '>>=', '>>>=', '=>', '=']
 
 unary_operator = ['+', '-', '++', '--', '!', '~']
 
+ternary_op = ['?', ':']
 
 start_state_op = 0
-secondary_state_op = 1
-final_state_op = 2
+final_state_op = 1
+secondary_state_op = 2
+ternary_state1_op = 3
 
 transition_operator = {}
 
 # start state
 transition_operator[start_state_op] = {}
-for char in digits:
-    transition_operator[start_state_op][char] = 2
-
-# secondary state
-transition_operator[final_state_op] = {}
-for char in operator:
-    transition_operator[final_state_op][char] = 1
-for char in unary_operator:
-    transition_operator[final_state_op][char] = 2
+for char in second_char:
+    transition_operator[start_state_op][char] = 1
 
 # final state
+transition_operator[final_state_op] = {}
+for char in operator: 
+    transition_operator[final_state_op][char] = 2
+for char in unary_operator:
+    transition_operator[final_state_op][char] = 1
+for char in second_char:
+    transition_operator[final_state_op][char] = 1
+transition_operator[final_state_op][ternary_op[0]] = 3
+
+# secondary state
 transition_operator[secondary_state_op] = {}
-for char in digits:
-    transition_operator[secondary_state_op][char] = 2
+for char in second_char:
+    transition_operator[secondary_state_op][char] = 1
+
+# ternary state1
+transition_operator[ternary_state1_op] = {}
+for char in second_char:
+    transition_operator[ternary_state1_op][char] = 3
+transition_operator[ternary_state1_op][ternary_op[1]] = 2
+
 
 def is_legal_operation(operation):
     current_state = start_state_op
+    operation = split_operation(operation)
     for char in operation:
-        if char == " ":
-            continue
         if char in transition_operator[current_state]:
             current_state = transition_operator[current_state][char]
         else:
@@ -96,8 +108,30 @@ def is_legal_operation(operation):
     else:
         return False
 
+def split_operation(operation):
+    result = []
+    var = ""
+    op = ""
+    for char in operation:
+        if char == " ":
+            continue
+        if char in second_char:
+            if op != "":
+                result.append(op)
+                op = ""
+            var += char
+        elif char in operator + unary_operator + ternary_op:
+            if var != "":
+                result.append(var)
+                var = ""
+            op += char
+    if var != "":
+        result.append(var)
+    if op != "":
+        result.append(op)
+    return result
+
 if __name__ == '__main__':
-    print(transition_variable)
     print(is_legal_variable('a'))
     print(is_legal_variable('var'))
-    print(is_legal_operation('0 ++ '))
+    print(is_legal_operation('1 ++'))
