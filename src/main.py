@@ -7,7 +7,12 @@ import fa
 
 kurung = ['(' , ')']
 
+variable = ["let", "var", "const"]
+
+
+
 if __name__ == "__main__":
+    var_list = []
     # cnf_convert.CFG_to_CNF_convert('grammar.txt', 'cnf.txt')
     parser = CYK_Algorithm.CYK()
     parser.insert_grammar('test/cnf.txt')
@@ -17,7 +22,7 @@ if __name__ == "__main__":
             string += lines.replace('\n', '  ')
 
     string = string.split(" ")
-    print(string)
+    # print(string)
     split = False
     newstring = ""
     for i in string:
@@ -26,10 +31,11 @@ if __name__ == "__main__":
                 for j in i:
                     newstring += j + "   "
                 continue
-            if i == "//":
+            elif i == "//":
                 split = True 
                 newstring += i + "   "
                 continue
+            
         if i != '':
             if split:
                 for j in i:
@@ -42,8 +48,10 @@ if __name__ == "__main__":
     
     newstring = newstring.replace(kurung[0],  " " + kurung[0] + '   ')
     newstring = newstring.replace(kurung[1], '   ' + kurung[1]  + " ")
-    newstring = newstring.replace(';', '   ;')
+    newstring = newstring.replace(';', '   ;  ')
     newstring = newstring.replace(':', '  :')
+    newstring = newstring.replace('{', '  {  ')
+    newstring = newstring.replace('}', '  }  ')
     # newstring = newstring.replace('"', '     "      ')
     newstring += "     "
     # newstring = newstring.replace('  ', ' ')
@@ -57,5 +65,9 @@ if __name__ == "__main__":
     else:
         print("Syntax Error")
     print("Exec time :", round(end - start,2))
+
+    print("Checking Variable...")
+    start = time.time()
+
         
     
