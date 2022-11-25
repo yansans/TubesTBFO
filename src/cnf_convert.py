@@ -232,7 +232,6 @@ def removeInvalid(grammar):
             for v in variable:
                 if v == prod.strip():
                     invalid = True
-                    print("Invalid Variable:", var, "->", prod)
                     grammar[var].remove(prod)
                     break
         # if invalid and len(grammar[var]) == 0:
@@ -247,7 +246,6 @@ def removeInvalid(grammar):
                     count += 1
             if count > 1:
                 invalid = True
-                print("Invalid Terminal:", var, "->", prod)
                 grammar[var].remove(prod)
 
     return grammar
@@ -283,7 +281,6 @@ def makeTwoVar(grammar):
                     grammar[newvar] = [list_prod[1] + " " + list_prod[2]]
                     variable.append(newvar)
                 else:
-                    print(n)
                     grammar[var].remove(prod)
                     grammar[var].append(list_prod[0] + " " + newvar)
                     grammar[newvar] = [list_prod[1] + " " + newvar2]
@@ -307,6 +304,21 @@ def printgrammar(grammar):
     for var in grammar:
         print(var, '->', ' | '.join(grammar[var]))
         
+def CFG_to_CNF_convert(inputfile, outputfile):
+    cfg = parsingCFG(inputfile)
+    grammar = cfg.copy()
+    nulls = removeNull(grammar)
+    unit = removeUnit(nulls)
+    replaceTerma = replaceTerminal(unit)
+    invalid = removeInvalid(replaceTerma)
+    twoVar = makeTwoVar(invalid)
+    cnf = twoVar
+    with open(outputfile, 'w') as f:
+        for var in cnf:
+            f.write(var + ' -> ' + ' | '.join(cnf[var]))
+            f.write('\n')
+        f.close()
+
 
 if __name__ == '__main__':
     cfg = parsingCFG('src/grammar.txt')
