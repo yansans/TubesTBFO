@@ -98,9 +98,10 @@ transition_operator[ternary_state1_op][ternary_op[1]] = 2
 def is_legal_operation(operation):
     current_state = start_state_op
     operation = split_operation(operation)
-    for char in operation:
-        if char in transition_operator[current_state]:
-            current_state = transition_operator[current_state][char]
+    # print(operation)
+    for op in operation:
+        if op in transition_operator[current_state]:
+            current_state = transition_operator[current_state][op]
         else:
             return False
     if current_state == final_state_op:
@@ -119,11 +120,8 @@ def split_operation(operation):
             if op != "":
                 result.append(op)
                 op = ""
-            var += char
+            result.append(char)
         elif char in operator + unary_operator + ternary_op:
-            if var != "":
-                result.append(var)
-                var = ""
             op += char
     if var != "":
         result.append(var)
@@ -134,4 +132,4 @@ def split_operation(operation):
 if __name__ == '__main__':
     print(is_legal_variable('a'))
     print(is_legal_variable('var'))
-    print(is_legal_operation('1 ++'))
+    print(is_legal_operation('1 \= 1123123'))
