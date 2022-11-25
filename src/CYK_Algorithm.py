@@ -79,4 +79,4 @@ if __name__ == "__main__":
     grammarpath = parent_directory + "\\test" + "\\cnf.txt"
 
     tmp.insert_grammar(grammarpath)
-    print(tmp.check_grammar("var temp = object.method() ;   "))
+    print(tmp.check_grammar("try {sherman = tank.types ;  }catch ( err ) {i ++ ;   }finally {i * = 5 ;  } throw 500 ;     const life = 42 ;      "))
