@@ -7,7 +7,7 @@ function do_something(x){
       if (true) {
         return -3;
       } else {
-        return 2;
+        return ( 2 * 5 )  - 3  ;
       }
     } else if (x == 32){
       return 4;
