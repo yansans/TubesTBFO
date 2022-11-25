@@ -27,7 +27,7 @@ if __name__ == "__main__":
     newstring = ""
     for i in string:
         if len(i) > 1:
-            if i[0] == '"':
+            if i[0] == '"' and not split:
                 for j in i:
                     newstring += j + "   "
                 continue
@@ -53,7 +53,6 @@ if __name__ == "__main__":
         elif i == '':
             newstring += ' '
             split = False
-            search_var = False
     
     newstring = newstring.replace(kurung[0],  " " + kurung[0] + '   ')
     newstring = newstring.replace(kurung[1], '   ' + kurung[1]  + " ")
@@ -79,14 +78,19 @@ if __name__ == "__main__":
     print("Checking Variable...")
     start = time.time()
     status = True
-    for i in var_set:
-        if not fa.is_legal_variable(i):
-            status = False
-            print("Variable Name Error :", i)
-            break
+    var = False
+    if len(var_set) > 0:
+        var = True
+        for i in var_set:
+            if not fa.is_legal_variable(i):
+                status = False
+                print("Variable Name Error :", i)
+                break
     end = time.time()
-    if status:
+    if status and var:
         print("Variable Name Accepted")
+    else:
+        print("No Variable Detected")
     print("Exec time :", round(end - start,2))
         
 
