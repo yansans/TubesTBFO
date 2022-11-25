@@ -79,4 +79,4 @@ if __name__ == "__main__":
     grammarpath = parent_directory + "\\test" + "\\cnf.txt"
 
     tmp.insert_grammar(grammarpath)
-    print(tmp.check_grammar("function do_something     ( x )     { if (  x + 4   == 1  ) { return 0 ;      } else if (  x == 2  ) { if ( true ) { return 3     ;    } else { return 2 ;     }     } else if (  x == 32  ) { return 4 ;   } else {  return momen ;   }    }         "))
+    print(tmp.check_grammar("console.log (      )   ;    "))

@@ -324,29 +324,24 @@ if __name__ == '__main__':
     cfg = parsingCFG('src/grammar.txt')
     grammar = cfg.copy()
     print("Original Grammar:")
-    printgrammar(grammar)
-
-
-    # print(grammar)
-    # print(variable)
-    # print(terminal)
     # printgrammar(grammar)
-    # removeNullDewa(grammar)
+
+
     nulls = removeNull(grammar)
-    print("Grammar after removing null productions:")
-    printgrammar(nulls)
+    # print("Grammar after removing null productions:")
+    # printgrammar(nulls)
     unit = removeUnit(nulls)
-    print("Grammar after removing unit productions:")
-    printgrammar(unit)
+    # print("Grammar after removing unit productions:")
+    # printgrammar(unit)
     replaceTerma = replaceTerminal(unit)
-    print("Grammar after replacing terminals:")
-    printgrammar(replaceTerma)
-    print("Grammar after removing invalid productions:")
+    # print("Grammar after replacing terminals:")
+    # printgrammar(replaceTerma)
+    # print("Grammar after removing invalid productions:")
     invalid = removeInvalid(replaceTerma)
-    printgrammar(invalid)
-    print("Grammar after making two variable productions:")
+    # printgrammar(invalid)
+    # print("Grammar after making two variable productions:")
     twoVar = makeTwoVar(invalid)
-    printgrammar(twoVar)
+    # printgrammar(twoVar)
     # # output
     cnf = twoVar
     filename = "test/cnf.txt"
@@ -358,7 +353,7 @@ if __name__ == '__main__':
         f.close()
 
     # test isTerminal
-    print(isTerminal("'+'"))
-    print(isTerminal("'a'S"))
+    # print(isTerminal("'+'"))
+    # print(isTerminal("'a'S"))
 
 

@@ -17,7 +17,7 @@ if __name__ == "__main__":
             string += lines.replace('\n', ' ')
 
     string = string.split(" ")
-    print(string)
+    # print(string)
     split = False
     newstring = ""
     for i in string:
@@ -44,9 +44,10 @@ if __name__ == "__main__":
     newstring = newstring.replace(kurung[1], '   ' + kurung[1]  + " ")
     newstring = newstring.replace(';', '   ;')
     # newstring = newstring.replace('"', '     "      ')
-    newstring += "      "
+    newstring += "     "
     # newstring = newstring.replace('  ', ' ')
-    print(newstring)
+    # print(newstring)
+    print("Parsing...")
     start = time.time()
     status = parser.check_grammar(newstring)
     end = time.time()
@@ -54,6 +55,6 @@ if __name__ == "__main__":
         print("Accepted")
     else:
         print("Syntax Error")
-    print("Exec time : ", round(end - start,2))
+    print("Exec time :", round(end - start,2))
         
     
