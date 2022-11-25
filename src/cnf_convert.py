@@ -323,7 +323,7 @@ def CFG_to_CNF_convert(inputfile, outputfile):
 if __name__ == '__main__':
     cfg = parsingCFG('src/grammar.txt')
     grammar = cfg.copy()
-    print("Original Grammar:")
+    # print("Original Grammar:")
     # printgrammar(grammar)
 
 

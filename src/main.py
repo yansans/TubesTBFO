@@ -19,7 +19,7 @@ if __name__ == "__main__":
     with open(sys.argv[1], 'r') as source_code:
         for lines in source_code:
             string += lines.replace('\n', '  ')
-
+    string = string.replace('\t', '   ')
     string = string.split(" ")
     # print(string)
     split = False

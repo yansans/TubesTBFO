@@ -1,6 +1,3 @@
-if (y != 0){
-    x = y;
+function getRandomNumber() {
 }
-else{
-    x = 0;
-}
+return 5;
